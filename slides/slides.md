@@ -9,6 +9,7 @@ drawings:
 transition: fade
 css: unocss
 mdc: true
+download: true
 canvasWidth: 653
 layout: image-right
 image: /book-cover.jpg
