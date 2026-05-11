@@ -1,171 +1,255 @@
 ---
-theme: default
-# colorSchema: dark
+theme: seriph
+colorSchema: dark
 highlighter: shiki
-# lineNumbers: true
-title: 사회심리로 본 인간과 미디어
-drawings:
-  persist: false
-transition: fade
+title: 유용했던 클로드코드 도구들
+transition: slide-left
 css: unocss
 mdc: true
 download: true
-canvasWidth: 653
-layout: image-right
-image: /book-cover.jpg
-zoom: 0.8
 ---
 
-# 사회심리로 본 인간과 미디어
-## 이쿠타가와 류노스케 「라쇼몬」
+# 유용했던 클로드코드 도구들
 
-20213058 이주엽
+크롬 개발자도구 MCP · LSP 플러그인 · Hook
+
+<div class="pt-12 text-gray-400">
+  발표자: 이주엽
+</div>
 
 ---
 layout: section
 ---
 
-# 책 내용
+# 목차
+
+<v-clicks>
+
+1. **크롬 개발자도구 MCP** — 브라우저를 Claude의 눈으로
+2. **LSP 플러그인** — 실시간 코드 진단
+3. **Hook** — Claude의 행동을 내 입맛대로
+
+</v-clicks>
 
 ---
-layout: image-right
-image: /rasho-gate.jpg
+layout: section
 ---
 
-# 라쇼몬이란?
-
-**나생문(羅城門)** — 우리나라로 치면 숭례문 같은 성문
-
-헤이안시대(794~1192년) 교토의 성문
-
----
-layout: default
----
-
-# 이야기의 시작
-
-라쇼몬에서 어느 한 남자가 비를 피하고 있다
-
-교토가 지진, 회오리, 화재, 기근 같은 재난이 연달아 일어나 쇠락을 맞이하던 때
-
-관리되지 못하는 라쇼몬에는 돌볼 사람 없는 시체들이 쌓여있다
+# 1. 크롬 개발자도구 MCP
 
 ---
 layout: default
 ---
 
-# 남자의 고민
+# 크롬 개발자도구 MCP란?
 
-라쇼몬에서 비를 피하고 있는 남자에게도 고민이 있다
+MCP 연결 후 Claude Code가 **크롬 브라우저를 직접 열고 제어**할 수 있다
 
-- 며칠 전까지 하인이었으나 주인집 사정이 나빠져 해고
-- **죽느냐 사느냐 — 도둑이 되어 삶을 연명할 것인가 고민 중**
+<img src="/chrome-mcp-demo.png" class="mt-4 rounded-lg border border-gray-600 w-full" />
 
-날이 질 때까지 비는 계속 내리고...
+<v-click>
 
-하룻밤을 보낼 곳을 고민하다 성문 위 누각(다락방)에서 자기로 결심
+> `"크롬개발자도구 MCP로 http://localhost:5174/에 접속해봐"`
+> → Claude가 직접 브라우저를 열고 페이지를 확인
 
----
-layout: default
----
-
-# 인기척
-
-계단을 오르는 중간, 위에서 **인기척**이 나고 불빛이 켜져 있다
-
-> 여기에는 시체밖에 없을 텐데?
+</v-click>
 
 ---
-layout: default
+layout: two-cols
 ---
 
-# 노파를 발견하다
+# 활용 1 — 디자인 수정 지시
 
-자세히 살펴보니 시체 썩은 내와 널브러진 시체들
+<img src="/chrome-mcp-design.png" class="rounded-lg border border-gray-600 w-full mb-3" />
 
-남자의 시체, 여자의 시체 — 옷이 입혀진 것과 벗겨진 것
+<v-clicks>
 
-그리고 시체들 사이에 웅크리고 앉아있는 **한 노파**
+- `"링크 복사 버튼이 너무 배경이랑 구분이 안돼. 눈에 잘 띄게 흰색, 누르면 검은색으로 바뀌게 해줘"`
+- Claude가 직접 페이지를 보고 → **코드를 바로 수정**
+- 사진을 줄 필요 없이, 말로만 해도 **정확하게 전달**
 
-**한 여자 시체의 머리카락을 한 올 한 올 뽑고 있었다**
-
----
-layout: default
----
-
-# 공포에서 분노로
-
-남자의 감정이 **공포**에서 한 순간에 **분노**로 바뀌었다
-
-악에 대한 분노 — 남의 시체를 훼손하는 악인에 대한 분노가 끓어오르며
-
-방금까지 **도둑이 될까 고민하던 것을 잊은 채**
-남자는 노파 앞에 당당히 모습을 드러낸다
+</v-clicks>
 
 ---
-layout: default
+layout: two-cols
 ---
 
-# 노파의 고백
+# 활용 2 — 개발자도구 디버깅
 
-칼을 찬 남자가 갑자기 나타나자 노파는 도망치려 발버둥치지만 실패
+::left::
 
-남자의 강압에 못 이겨 이야기를 털어놓는다
+**기존 방식 (F12)**
 
-- 머리카락을 모아 **가발을 만들려** 했다
-- 여기있는 시체들은 그럴만하다. 이 여자는 **뱀을 토막 쳐 말린 뒤 말린 생선이라 속이고 병졸들에게 팔러 다녔다**
-- 역병에 죽지만 않았어도 지금도 그 짓을 하고 다녔을 것이다.
+1. 개발자도구 직접 열기
+2. Console / Network 탭 확인
+3. 오류 발견
+4. Claude에게 복붙해서 설명
+5. 원인 파악 요청...
+
+<v-click>
+
+→ 뭐가 문제인지 **내가 먼저 찾아야 함**
+
+</v-click>
+
+::right::
+
+<v-click>
+
+**MCP 방식**
+
+1. `"이 페이지 열어서 Console이랑 Network 봐줘"`
+2. Claude가 직접 개발자도구 접근
+3. **원인 분석 → 해결방안 제시** 자동화
+
+→ 지시만 하면 **문제 진단부터 수정까지** 빠르게
+
+</v-click>
 
 ---
 layout: quote
 ---
 
-"나는 이 여자가 나쁘다고는 생각 안 해. 굶어 죽지 않으려면 어쩔 수 없는 일이지."
+"뭐가 문제인지 설명할 필요가 없어졌다."
 
-"그렇게 하면 내가 하던 짓도 나쁘다고는 할 수 없지. 굶어 죽으니께 할 수 없이 한 거여."
-
----
-layout: default
----
-
-# 결말
-
-노파의 말 덕분에 **용기를 얻은 남자**는 말합니다
-
-> "그렇다면, 내가 좀 벗겨 먹어도 원망할 건 없겠군.
-> 나도 그렇게 안 하면 굶어 죽을 테니까 말이야."
-
-남자는 재빨리 **노파의 옷을 벗겨내고**
-다리를 붙잡는 노파를 시체 사이로 걷어차 떨쳐내고 사라졌다
+<div class="text-right text-gray-400 mt-4">— 그냥 보라고 하면 되니까</div>
 
 ---
 layout: section
 ---
 
-# 감상
+# 2. LSP 플러그인
 
 ---
 layout: default
 ---
 
-# 작품을 좋아하는 이유
+# LSP가 뭔지는 이미 알고 있다
 
-- **인간의 모순된 모습을 잘 표현한 작품** → 깊은 공감
-- 단편 모음집이지만 각 이야기가 다 흡입력 있다
+코딩할 때 보이는 **빨간 밑줄** — 그게 LSP다
+
+<v-clicks>
+
+- **Language Server Protocol** — VS Code, JetBrains 등 IDE에 내장된 코드 진단 엔진
+- 타입 오류, 참조 오류, 린트 경고를 **실시간으로** 잡아준다
+- IDE가 이걸 화면에 그려주는 것뿐, 진단 자체는 LSP가 한다
+
+</v-clicks>
+
+---
+layout: two-cols
+---
+
+# Claude Code는 코드를 어떻게 볼까?
+
+::left::
+
+**Claude의 기본 방식**
+
+- 코드를 **텍스트로 읽는다**
+- 오류를 찾으려면 관련 파일을 전부 읽어야 함
+- 프로젝트가 커질수록 → **토큰 낭비 심해짐**
+- 파일을 다 읽어도 → **진단이 부정확할 수 있음**
+
+::right::
+
+<v-click>
+
+**LSP 플러그인 사용 시**
+
+- IDE가 이미 분석한 **진단 결과만** 받아온다
+- 파일을 직접 다 읽을 필요 없음 → **토큰 절약**
+- LSP가 정확히 짚어준 위치·원인 → **더 정확한 진단**
+
+</v-click>
 
 ---
 layout: default
-zoom: 0.667
 ---
 
-# 비판적 시각
+# 실제 동작 — 더블체크
 
-기존에 읽었던 다른 일본 문학과 사뭇 다른 느낌
+<div class="flex gap-4">
+<div class="flex-1">
 
-| | 작품 | 분위기 |
-|---|---|---|
-| 다자이 오사무 | 「인간실격」 | 퇴폐적, 허무, 무거움 |
-| 무라카미 하루키 | 「노르웨이의 숲」 | 퇴폐적, 허무, 무거움 |
-| 이쿠타가와 류노스케 | 「라쇼몬」 | 인간의 모순을 냉철하게 짚으면서도 가볍게 읽을 수 있다 |
+코드를 수정한 뒤, Claude가 **알아서 LSP로 검증**한다
 
-일본 문학에 대한 고정관념을 깨준 책
+<v-clicks>
+
+- LSP `documentSymbol`로 파일 구조 파악
+- **282개 심볼** 분석 → 진단 이슈 2건 발견
+- 파일을 전부 읽지 않고도 **정확하게 문제 위치** 특정
+- 분석 완료 후 취약점을 심각도 순으로 정리
+
+</v-clicks>
+
+</div>
+<div class="flex-1">
+<img src="/lsp-demo.png" class="rounded-lg border border-gray-600 h-72 object-cover object-top" />
+</div>
+</div>
+
+---
+layout: fact
+---
+
+# 토큰은 아끼고, 정확도는 높이고
+
+LSP는 Claude가 코드를 이해하는 방식 자체를 바꿔준다
+
+---
+layout: section
+---
+
+# 3. Hook
+
+---
+layout: default
+---
+
+# Hook이란?
+
+Claude Code가 **도구를 실행하는 순간**에 내 쉘 명령을 끼워넣는 기능
+
+| 이벤트 | 시점 |
+|--------|------|
+| `PreToolUse` | 도구 실행 **직전** |
+| `PostToolUse` | 도구 실행 **직후** |
+| `Notification` | Claude가 알림을 보낼 때 |
+| `Stop` | Claude가 응답을 **멈출 때** |
+
+<v-click>
+
+```json
+// .claude/settings.json
+{
+  "hooks": {
+    "PostToolUse": [{ "matcher": "Write|Edit", "hooks": [{ "type": "command", "command": "prettier --write $FILE" }] }]
+  }
+}
+```
+
+→ Claude가 파일을 저장할 때마다 **자동으로 prettier 실행**
+
+</v-click>
+
+---
+layout: default
+---
+
+# 개인적으로 느낀 한계 / 불편함 / 개선점
+
+<v-clicks>
+
+- **설치 귀찮음** — MCP 서버, LSP 플러그인, Hook 설정 등 초기 세팅이 번거롭다
+- **관리 복잡** — 프로젝트마다 설정이 달라질 수 있고, 업데이트 시 깨지는 경우가 있다
+
+</v-clicks>
+
+---
+layout: center
+---
+
+# 감사합니다
+
+질문 있으신가요?
